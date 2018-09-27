@@ -1,4 +1,4 @@
- BANCO DE DADOS MYSQL
+﻿ BANCO DE DADOS MYSQL
 
 create database nttdata;
 use nttdata;
@@ -27,7 +27,7 @@ db.everis.insert({
  CURSO MONGODB (noSQL)
 
 db.produtos.insert({
-'cdProduto': 1,
+'cdProduto': 4,
 'nmProduto': 'Feijão',
 'dtValidade': '2018-09-25',
 'tags': ['Óleo','Vegetal','Mineral','Animal'],
@@ -60,7 +60,7 @@ db.lojas.update({'cod': 3},
                 {'nmEndereco': 'Av Brigadeiro, 43'}});                 	            
 
 db.lojas.update({'cod': 4},
-                {$set:
+                {$set:()
                 {'nmEndereco': 'Rua Fagundes Varela, 290'}});
 
 db.lojas.update({'cod': 5},
@@ -78,3 +78,92 @@ db.lojas.insert({'cod': 5, 'nmEndereco': 'Av das Nações Unidas, 1080'});
 
 db.collection.renameCollection("???");
 
+db.produtos.insert([{'cdProduto': 2, 'nmProduto': 'Feijão', 'qualidade': 'alta'},
+	               {'cdProduto': 3, 'nmProduto': 'Macarrão', 'qualidade': 'alta'}]);
+
+db.produtos.find({'qualidade': /.*al.*/}).pretty(); --- LIKE
+
+db.produtos.find({'nmProduto': /.*oz.*/}).pretty();
+
+db.produtos.find({$and: [
+                 {'cdProduto': 3},
+                 {'qualidade': 'alta'}
+	             ]}).pretty();
+
+db.produtos.find({$and: [
+                 {'cdProduto': 1},
+                 {'qualidade': 'alta'} 
+	             ]}).pretty();
+
+db.produtos.find({$and: [
+                 {'nmProduto': 'Feijão'},
+                 {'qualidade': 'alta'}
+	             ]}).pretty();
+
+db.produtos.find({'qualidade': 'alta', 'cdProduto': 3}).pretty();
+
+db.produtos.find({$or: [
+                 {'nmProduto': 'Arroz'},
+                 {'qualidade': 'alta'} 
+                 ]}).pretty();
+
+db.produtos.find({$or: [
+                 {'nmProduto': 'Feijão'},
+                 {'nmProduto': 'Arroz'}   
+	             ]}).pretty();
+
+db.produtos.find({'qualidade': 
+	             {$exists: false}})
+                 .pretty();
+
+db.produtos.find({'qualidade':
+                 {$exists: true}})
+                 .pretty();  
+
+db.produtos.find({'qualidade':
+                 {$not:
+                 {$eq: 'alta'}}})
+                 .pretty(); 
+
+db.produtos.find({'qualidade':
+                 {$not:
+                 {$eq: 'baixa'}}})
+                 .pretty();
+
+db.produtos.insert({'cdProduto': 5,
+                   'nmProduto': 'Nescau',
+                   'qualidade': 'baixa'});              
+
+db.produtos.find({$nor: [
+                 {'qualidade': 'alta'},
+                 {'qualidade': {$exists: false}}  
+	             ]}).pretty();
+
+db.produtos.find({$nor: [
+                 {'nmProduto': 'Feijão'},
+                 {'qualidade': {$exists: false}}
+	             ]}).pretty();
+
+db.produtos.find({'cdProduto': {$not:
+                 {$eq: 5}}
+                 }).pretty();
+
+db.produtos.find({'nmProduto': {$not:
+                 {$eq: 'Feijão'}}
+                 }).pretty();
+
+db.produtos.find({'qualidade': {$not:
+                 {$eq: 'baixa'}}
+                 }).pretty();
+
+db.produtos.find({'qualidade': {$not:
+                 {$eq: 'alta'}}
+	             }).pretty();
+
+db.produtos.find({'cdProduto': {$ne: 5}}).pretty();
+
+db.produtos.find({'nmProduto': {$ne: 'Arroz'}}).pretty();
+
+db.produtos.find({'qualidade': {$ne: 'alta'}}).pretty();
+
+db.produtos.find({'qualidade': {$ne: 'baixa'}}).pretty();
