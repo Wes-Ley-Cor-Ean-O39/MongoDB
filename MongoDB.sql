@@ -167,3 +167,48 @@ db.produtos.find({'nmProduto': {$ne: 'Arroz'}}).pretty();
 db.produtos.find({'qualidade': {$ne: 'alta'}}).pretty();
 
 db.produtos.find({'qualidade': {$ne: 'baixa'}}).pretty();
+
+db.produtos.update({'cdProduto': 1}, 
+		           {$set: 
+		           {'preco': 2.3}});
+
+db.produtos.update({'cdProduto': 3}, 
+		           {$set: 
+		           {'preco': 5.5}});
+
+db.produtos.update({'cdProduto': 4},
+                   {$set:
+                   {'preco': 6.9 }});
+
+db.produtos.update({'cdProduto': 5},
+                   {$set:
+                   {'preco': 3.5}});
+
+db.produtos.insert({'cdProduto': 2,
+                   'nmProduto': 'Feijão',
+                   'qualidade': 'baixa',
+                   'preco': 4.1});
+
+db.produtos.find({$and: [{preco: {$gte: 2.3}}, {preco: {$lte: 5.5}}]}).pretty(); ---$gte = or > / lte = or <
+
+db.produtos.find({$and: [{preco: {$gte: 6.9}}]}).pretty();
+
+db.produtos.find({}, {'cdProduto': 1, 'nmProduto': 1}).pretty();
+
+db.produtos.find({}, {'preco': 1}).pretty(); -- 0 Não retorna os atributos / 1 retorna os atributos (lógica binária)
+
+db.produtos.find({}, {'nmProduto': 0}).pretty();
+
+db.produtos.find({}, {}).sort({'cdProduto': 1}).pretty();
+
+db.produtos.find({}, {}).sort({'nmProduto': 1}).pretty();
+
+db.produtos.find({}, {}).sort({'qualidade': -1, 'cdProduto': 1}).pretty();
+
+db.produtos.find({}, {'qualidade': 1, 'cdProduto': 1}).sort({'qualidade': -1, 'cdProduto': 1}).pretty();
+
+db.produtos.find({}).skip(4).pretty();
+
+db.produtos.find({}, {'cdProduto': 1, 'cdProduto': 1}).skip(3).pretty();
+
+db.produtos.find({}, {'cdProduto': 1, 'qualidade': 1}).limit(1).pretty();
