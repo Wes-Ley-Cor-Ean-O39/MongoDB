@@ -212,3 +212,23 @@ db.produtos.find({}).skip(4).pretty();
 db.produtos.find({}, {'cdProduto': 1, 'cdProduto': 1}).skip(3).pretty();
 
 db.produtos.find({}, {'cdProduto': 1, 'qualidade': 1}).limit(1).pretty();
+
+db.clientes.insertOne({'cdCliente': 1,
+	                'nmCliente': 'Bruno',
+	                'inAtivo': 1});
+db.clientes.findOne({}, {'inAtivo': 0});
+
+var cliente = db.clientes.findOne({}, {'inAtivo': 0});
+cliente;
+
+db.produtos.find({'cdProduto': {$lte: 2}}).pretty();
+
+db.produtos.find({'cdProduto': {$lte: 2}}, {'qualidade': 0}).pretty();
+
+var produto = db.produtos.find({'cdProduto': {$lte: 2}}, {'qualidade': 0}).pretty();
+produto;
+
+db.vendas.insertOne({
+	'clientes': 'cliente',
+	'produtos': 'produto'
+	});
